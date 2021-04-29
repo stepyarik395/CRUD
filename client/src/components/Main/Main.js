@@ -21,9 +21,7 @@ const Main = () => {
         <TextField label="origin_description​" />
         <TextField label="superpowers" />
         <TextField label="catch_phrase​" />
-        <Button classes={{ root: classes.buttoncreate }} variant="outlined">
-          Create
-        </Button>
+        <Button variant="outlined">Create</Button>
         <input
           accept="image/*"
           className={classes.input}
