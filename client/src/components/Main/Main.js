@@ -11,6 +11,7 @@ const Main = () => {
   const [superPowers, setSuperpowers] = useState('');
   const [originDescription, setOriginDescription] = useState('');
   const [catchPhrase, setCatchPhrase] = useState('');
+  const [heroImage, setHeroImage] = useState('');
 
   return (
     <Container maxWidth="lg">
@@ -62,6 +63,9 @@ const Main = () => {
           accept="image/*"
           className={classes.input}
           multiple
+          onChange={(e) => {
+            setHeroImage(e.target.files[0]);
+          }}
           type="file"
           id="contained-button-file"
         />
