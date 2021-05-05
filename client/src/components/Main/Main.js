@@ -3,15 +3,33 @@ import useStyles from './MainStyles';
 import { useState } from 'react';
 import { TextField, Container, Grid, Fab, Button } from '@material-ui/core';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import axios from 'axios';
 
 const Main = () => {
   const classes = useStyles();
-  const [nickname, setNickname] = useState('');
-  const [realName, setRealName] = useState('');
-  const [superPowers, setSuperpowers] = useState('');
-  const [originDescription, setOriginDescription] = useState('');
-  const [catchPhrase, setCatchPhrase] = useState('');
+  const [mainObj, setMainObj] = useState({
+    nickName: '',
+    realName: '',
+    superPowers: '',
+    originDescription: '',
+    catchPhrase: '',
+  });
   const [heroImage, setHeroImage] = useState('');
+  const createHero = () => {
+    axios({
+      method: 'post',
+      url: 'http://localhost:3001/api/create',
+      data: {
+        // nickName: nickName,
+        // realName: realName,
+        // superPowers: superPowers,
+        // originDescription: originDescription,
+        // catchPhrase: catchPhrase,
+        // heroImage: heroImage.name,
+      },
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  };
 
   return (
     <Container maxWidth="lg">
@@ -25,41 +43,57 @@ const Main = () => {
         alignItems="center"
       >
         <TextField
-          value={nickname}
+          name="nickName"
+          value={mainObj.nickName}
           onChange={(e) => {
-            setNickname(e.target.value);
+            setMainObj((mainObj) => {
+              return { ...mainObj, nickName: e.target.value };
+            });
           }}
-          label="nickname​"
+          label="nickName​"
         />
         <TextField
-          value={realName}
+          name="realName"
+          value={mainObj.realName}
           onChange={(e) => {
-            setRealName(e.target.value);
+            setMainObj((mainObj) => {
+              return { ...mainObj, realName: e.target.value };
+            });
           }}
           label="real_name​"
         />
         <TextField
-          value={originDescription}
+          name="superPowers"
+          value={mainObj.superPowers}
           onChange={(e) => {
-            setOriginDescription(e.target.value);
-          }}
-          label="origin_description​"
-        />
-        <TextField
-          value={superPowers}
-          onChange={(e) => {
-            setSuperpowers(e.target.value);
+            setMainObj((mainObj) => {
+              return { ...mainObj, superPowers: e.target.value };
+            });
           }}
           label="superpowers"
         />
         <TextField
-          value={catchPhrase}
+          name="originDescription"
+          value={mainObj.originDescription}
           onChange={(e) => {
-            setCatchPhrase(e.target.value);
+            setMainObj((mainObj) => {
+              return { ...mainObj, originDescription: e.target.value };
+            });
+          }}
+          label="origin_description​"
+        />
+        <TextField
+          name="catchPhrase"
+          value={mainObj.catchPhrase}
+          onChange={(e) => {
+            setMainObj((mainObj) => {
+              return { ...mainObj, catchPhrase: e.target.value };
+            });
           }}
           label="catch_phrase​"
         />
         <input
+          name="file"
           accept="image/*"
           className={classes.input}
           multiple
@@ -74,7 +108,11 @@ const Main = () => {
             <AddPhotoAlternateIcon />
           </Fab>
         </label>
-        <Button classes={{ root: classes.createbutton }} variant="outlined">
+        <Button
+          onClick={createHero}
+          classes={{ root: classes.createbutton }}
+          variant="outlined"
+        >
           Create
         </Button>
       </Grid>
