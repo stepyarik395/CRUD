@@ -13,21 +13,14 @@ const Main = () => {
     superPowers: '',
     originDescription: '',
     catchPhrase: '',
+    image: '',
   });
-  const [heroImage, setHeroImage] = useState('');
   const createHero = () => {
     axios({
       method: 'post',
       url: 'http://localhost:3001/api/create',
-      data: {
-        // nickName: nickName,
-        // realName: realName,
-        // superPowers: superPowers,
-        // originDescription: originDescription,
-        // catchPhrase: catchPhrase,
-        // heroImage: heroImage.name,
-      },
-      headers: { 'Content-Type': 'multipart/form-data' },
+      data: mainObj,
+      // headers: { 'Content-Type': 'multipart/form-data' },
     });
   };
 
@@ -96,9 +89,11 @@ const Main = () => {
           name="file"
           accept="image/*"
           className={classes.input}
-          multiple
           onChange={(e) => {
-            setHeroImage(e.target.files[0]);
+            // setImage(e.target.files[0]);
+            setMainObj((mainObj) => {
+              return { ...mainObj, image: e.target.files[0] };
+            });
           }}
           type="file"
           id="contained-button-file"
